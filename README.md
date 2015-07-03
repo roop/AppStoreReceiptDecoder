@@ -11,7 +11,7 @@ This project helps in decoding that format.
 
 To try it, run `./run.sh`
 
-To use it in your project, add AppStoreReceipt.swift and use it like:
+To use it in your project, add `AppStoreReceipt.swift` to the project and use it like:
 
 ~~~ Swift
 let data: NSData // data output from PKCS7_verify
@@ -20,7 +20,7 @@ let bundleIdData: NSData?
 let receipt = AppStoreReceipt(payloadData: data)
 receipt.enumerateReceiptAttributes { (type, version, value) in
     switch (type) {
-        case 21: // Bundle id
+        case 2: // Bundle id
             bundleId = AppStoreReceipt.decodeASN1String(value)
             bundleIdData = value
         ...
@@ -30,7 +30,7 @@ receipt.enumerateReceiptAttributes { (type, version, value) in
 }
 ~~~
 
-See main.swift for a more detailed example.
+See `main.swift` for a more detailed example.
 
 ### Why
 
@@ -38,7 +38,7 @@ Integrating the [ASN.1 compiler][asn1c]-generated code with an iOS
 project introduces multiple source files and warnings, and is not Swift
 1.2-friendly because of the use of function pointers.
 
-This projects provides a clean one-file receipt decoder in Swift.
+This project provides a clean one-file receipt decoder in Swift.
 
 [asn1c]: https://github.com/vlm/asn1c
 
