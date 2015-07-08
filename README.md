@@ -15,8 +15,8 @@ To use it in your Swift project, add `AppStoreReceipt.swift` to the project and 
 
 ~~~ Swift
 let data: NSData // data output from PKCS7_verify
-let bundleId: String?
-let bundleIdData: NSData?
+var bundleId: String?
+var bundleIdData: NSData?
 let receipt = AppStoreReceipt(payloadData: data)
 receipt.enumerateReceiptAttributes { (type, version, value) in
     switch (type) {
