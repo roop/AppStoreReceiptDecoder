@@ -11,7 +11,7 @@ This project helps in decoding that format.
 
 To try it, run `./run.sh`
 
-To use it in your project, add `AppStoreReceipt.swift` to the project and use it like:
+To use it in your Swift project, add `AppStoreReceipt.swift` to the project and use it like this:
 
 ~~~ Swift
 let data: NSData // data output from PKCS7_verify
@@ -28,6 +28,28 @@ receipt.enumerateReceiptAttributes { (type, version, value) in
             break
     }
 }
+~~~
+
+To use it in your Objective-C project, add `AppStoreReceipt.swift` to the project, add the `@objc` attribute to the `AppStoreReceipt` Swift class, import the Swift header (see 'Using Swift from Objective-C' in [_Using Swift with Cocoa and Objective-C_][swift-cocoa-book]), and use it like this:
+
+[swift-cocoa-book]: https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/
+
+~~~ Objective-C
+NSData* data; // data output from PKCS7_verify
+__block NSString* bundleId;
+__block NSData* bundleIdData;
+AppStoreReceipt *receipt = [AppStoreReceipt receiptWithPayloadData: data];
+[receipt enumerateReceiptAttributes:^(NSInteger type, NSInteger version, NSData * __nonnull value) {
+    switch (type) {
+        case 2:
+            bundleId = [AppStoreReceipt decodeASN1String:value];
+            bundleIdData = value;
+            break;
+        ...
+        default:
+            break;
+    }
+}];
 ~~~
 
 See `main.swift` for a more detailed example.

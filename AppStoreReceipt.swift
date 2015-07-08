@@ -33,11 +33,18 @@
 
 import Foundation
 
+// Add '@objc' here if you'd like to use this from Objective-C
 class AppStoreReceipt {
     let _payloadData: NSData
 
     init(payloadData: NSData) {
         self._payloadData = payloadData
+    }
+
+    class func receiptWithPayloadData(payloadData: NSData) -> AppStoreReceipt {
+        // Helper for using this class from Objective-C.
+        // This is required because AppStoreReceipt is not an NSObject.
+        return AppStoreReceipt(payloadData: payloadData)
     }
 
     func enumerateReceiptAttributes(block: (type: Int, version: Int, value: NSData) -> Void) -> Bool {
